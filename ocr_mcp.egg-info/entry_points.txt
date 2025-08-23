@@ -1,0 +1,2 @@
+[console_scripts]
+ocr-mcp-server = ocr_mcp.server:main

@@ -1,3 +1,35 @@
+Metadata-Version: 2.4
+Name: ocr-mcp
+Version: 1.0.0
+Summary: Lightweight OCR MCP Server for AI Models
+Author: OCR MCP Team
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mcp>=1.0.0
+Requires-Dist: ddddocr==1.5.6
+Requires-Dist: Pillow>=10.1.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: aiofiles>=23.2.1
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.3; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.1; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: black>=23.12.0; extra == "dev"
+Requires-Dist: flake8>=6.1.0; extra == "dev"
+Requires-Dist: mypy>=1.7.0; extra == "dev"
+Dynamic: license-file
+
 # OCR MCP (Model Context Protocol) 系统
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
@@ -18,12 +50,6 @@
 
 ## 🚀 快速开始
 
-### 系统要求
-
-- Python 3.10+ (推荐 3.13)
-- Windows/Linux/macOS
-- 至少 2GB 可用内存
-
 ### 安装依赖
 
 ```bash
@@ -31,33 +57,24 @@
 git clone <repository-url>
 cd free_ocr
 
-# 安装依赖 (注意: 需要兼容的Pillow版本)
+# 安装依赖
 pip install -r requirements.txt
 
-# 验证安装
-python verify_mcp_installation.py
+# 或者安装开发依赖
+pip install -e ".[dev]"
 ```
 
 ### 启动服务器
 
 ```bash
-# 启动MCP服务器
-python -m ocr_mcp.server
+# 方式1: 使用模块启动
+python -m ocr_mcp
 
-# 服务器启动成功后会显示:
-# INFO - ddddocr引擎初始化成功
-# INFO - 已注册 2 个工具: ['captcha_recognize', 'image_preprocess']
-# INFO - MCP服务器已启动，等待客户端连接...
-```
+# 方式2: 使用脚本启动
+ocr-mcp-server
 
-### 兼容性说明
-
-**重要**: 由于ddddocr与新版Pillow的兼容性问题，本项目已配置使用Pillow 10.x版本。如果遇到 `PIL.Image.ANTIALIAS` 错误，请运行:
-
-```bash
-pip install "Pillow>=10.1.0,<11.0.0"
-pip uninstall ddddocr -y
-pip install ddddocr
+# 调试模式
+python -m ocr_mcp --debug
 ```
 
 ### 基本使用示例
@@ -148,49 +165,12 @@ if __name__ == "__main__":
 }
 ```
 
-## 🔧 使用模式
-
-### 模式1: MCP服务器模式（推荐）
-
-适用于AI模型集成，如Claude Desktop、ChatGPT等。
-
-```bash
-# 启动MCP服务器
-python -m ocr_mcp.server
-```
-
-### 模式2: 独立OCR模式
-
-适用于直接命令行使用，无需MCP框架。
-
-```bash
-# 单文件识别
-python standalone_ocr.py captcha.png
-
-# 批量识别
-python standalone_ocr.py *.png --batch
-
-# 跳过预处理（更快但可能精度较低）
-python standalone_ocr.py image.jpg --no-preprocess
-
-# 查看帮助
-python standalone_ocr.py --help
-```
-
-**独立模式特性:**
-- ✅ 无需MCP框架依赖
-- ✅ 支持单文件和批量处理
-- ✅ 可选图像预处理
-- ✅ 详细的处理统计
-- ✅ 命令行友好界面
-
 ## 🤖 AI模型集成
 
 ### Claude Desktop集成
 
-在Claude Desktop配置文件中添加OCR服务器。详细配置选项请参考[服务器配置](#服务器配置)部分。
+在Claude Desktop配置文件中添加:
 
-**基本配置:**
 ```json
 {
   "mcpServers": {
@@ -279,59 +259,6 @@ free_ocr/
 ```
 
 ## ⚙️ 配置
-
-### 服务器配置
-
-#### MCP服务器启动参数
-
-```bash
-# 基本启动
-python -m ocr_mcp
-
-# 指定端口和主机
-python -m ocr_mcp --host 0.0.0.0 --port 8080
-
-# 启用调试模式
-python -m ocr_mcp --debug
-
-# 设置最大并发连接数
-python -m ocr_mcp --max-connections 10
-```
-
-#### Claude Desktop配置
-
-在Claude Desktop的配置文件中添加OCR服务器:
-
-```json
-{
-  "mcpServers": {
-    "ocr-server": {
-      "command": "python",
-      "args": ["-m", "ocr_mcp"],
-      "env": {
-        "OCR_LOG_LEVEL": "INFO",
-        "OCR_MAX_IMAGE_SIZE": "5"
-      }
-    }
-  }
-}
-```
-
-#### 自定义应用配置
-
-```python
-from mcp import StdioServerParameters
-
-# 服务器参数配置
-server_params = StdioServerParameters(
-    command="python",
-    args=["-m", "ocr_mcp"],
-    env={
-        "OCR_LOG_LEVEL": "DEBUG",
-        "OCR_MAX_IMAGE_SIZE": "10"
-    }
-)
-```
 
 ### 环境变量
 
