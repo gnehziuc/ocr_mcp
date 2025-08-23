@@ -6,7 +6,7 @@
 ddddocr>=1.0.6
 
 # Image processing
-Pillow>=10.1.0,<11.0.0  # 兼容ddddocr，避免ANTIALIAS错误
+Pillow>=10.1.0,<11.0.0  # Compatible with ddddocr, avoid ANTIALIAS error
 
 # Data validation
 pydantic>=2.5.0
