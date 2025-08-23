@@ -233,6 +233,85 @@ class OCRAssistant:
         return result.content[0].text
 ```
 
+### NPX集成方式
+
+使用npx可以快速启动OCR MCP服务器，无需手动安装Python依赖：
+
+```bash
+# 使用npx启动OCR服务器
+npx @modelcontextprotocol/server-python python -m ocr_mcp
+
+# 指定Python路径
+npx @modelcontextprotocol/server-python /usr/bin/python3 -m ocr_mcp
+
+# 带环境变量启动
+OCR_LOG_LEVEL=DEBUG npx @modelcontextprotocol/server-python python -m ocr_mcp
+```
+
+**Claude Desktop配置（NPX方式）:**
+```json
+{
+  "mcpServers": {
+    "ocr-server": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-python",
+        "python",
+        "-m",
+        "ocr_mcp"
+      ],
+      "env": {
+        "OCR_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
+```
+
+### UVX集成方式
+
+使用uvx（uv的执行器）可以在隔离环境中运行OCR服务器：
+
+```bash
+# 使用uvx启动OCR服务器
+uvx --from ocr-mcp ocr-mcp
+
+# 指定Python版本
+uvx --python 3.11 --from ocr-mcp ocr-mcp
+
+# 带额外依赖启动
+uvx --from ocr-mcp --with pillow==10.1.0 ocr-mcp
+
+# 开发模式启动
+uvx --from . ocr-mcp --debug
+```
+
+**Claude Desktop配置（UVX方式）:**
+```json
+{
+  "mcpServers": {
+    "ocr-server": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "ocr-mcp",
+        "ocr-mcp"
+      ],
+      "env": {
+        "OCR_LOG_LEVEL": "INFO",
+        "UV_PYTHON": "3.11"
+      }
+    }
+  }
+}
+```
+
+**UVX优势:**
+- 🔒 **隔离环境**: 自动创建独立的Python环境
+- ⚡ **快速启动**: 缓存依赖，启动速度更快
+- 🎯 **版本控制**: 精确控制Python和依赖版本
+- 🛡️ **安全性**: 避免全局环境污染
+
 ## 🧪 测试
 
 ```bash
