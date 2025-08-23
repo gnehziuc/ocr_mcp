@@ -248,7 +248,7 @@ npx @modelcontextprotocol/server-python /usr/bin/python3 -m ocr_mcp
 OCR_LOG_LEVEL=DEBUG npx @modelcontextprotocol/server-python python -m ocr_mcp
 ```
 
-**Claude Desktop配置（NPX方式）:**
+**Server config（NPX方式）:**
 ```json
 {
   "mcpServers": {
@@ -268,7 +268,7 @@ OCR_LOG_LEVEL=DEBUG npx @modelcontextprotocol/server-python python -m ocr_mcp
 }
 ```
 
-### UVX集成方式
+### Server config UVX集成方式
 
 使用uvx（uv的执行器）可以在隔离环境中运行OCR服务器：
 
