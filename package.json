@@ -1,0 +1,63 @@
+{
+  "name": "@gnehziuc/ddddocr-mcp-server",
+  "version": "1.0.8",
+  "description": "A Model Context Protocol (MCP) server for CAPTCHA recognition using ddddocr",
+  "main": "lib/index.js",
+  "bin": {
+    "ddddocr-mcp": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node lib/index.js",
+    "build": "echo 'Build completed'",
+    "test": "node test/test.js",
+    "prepublishOnly": "npm run build",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "keywords": [
+    "mcp",
+    "captcha",
+    "ocr",
+    "ddddocr",
+    "recognition",
+    "model-context-protocol",
+    "ai",
+    "automation"
+  ],
+  "author": "MCP Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ddddocr-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/ddddocr-mcp-server/issues"
+  },
+  "homepage": "https://github.com/your-org/ddddocr-mcp-server#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "cross-spawn": "^7.0.3",
+    "which": "^4.0.0",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "scripts/",
+    "python/",
+    "mcp-config.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "preferGlobal": true
+}

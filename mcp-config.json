@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ddddocr-captcha": {
+      "command": "npx",
+      "args": [
+        "@gnehziuc/ddddocr-mcp-server",
+        "start",
+        "--transport",
+        "stdio"
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# MCP验证码识别服务器依赖
+# MCP SDK
+mcp>=1.0.0
+
+# 验证码识别引擎
+ddddocr>=1.0.6
+
+# 图像处理
+Pillow==9.5.0
+
+# 异步支持
+aiohttp>=3.8.0
+uvicorn>=0.20.0
+
+# 配置文件处理
+PyYAML>=6.0
+
+# 日志记录
+loguru>=0.6.0
+
+# 数据处理
+numpy>=1.21.0
+
+# 类型提示
+typing-extensions>=4.0.0
